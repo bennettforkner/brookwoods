@@ -1,0 +1,5 @@
+config.json
+vendor/
+*phpcs.xml
+php_errors.log
+.well-known/
