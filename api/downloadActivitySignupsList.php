@@ -20,7 +20,16 @@ if ($query->num_rows > 0) {
 	 
 	// Output each row of the data, format line as csv and write to file pointer
 	while ($row = $query->fetch_assoc()) {
-		$lineData = array($row['FirstName'], $row['LastName'], $row['DOB'], $row['Gender'], $row['AA'], $row['MaxAwardCode'], $row['MaxAwardDate'], $row['NextAwardCode']);
+		$lineData = array(
+			$row['FirstName'],
+			$row['LastName'],
+			$row['DOB'],
+			$row['Gender'],
+			$row['AA'],
+			$row['MaxAwardCode'],
+			$row['MaxAwardDate'],
+			$row['NextAwardCode']
+		);
 		fputcsv($f, $lineData, $delimiter);
 	}
 	 
