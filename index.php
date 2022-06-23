@@ -41,11 +41,6 @@ namespace Brookwoods {
 		}
 	}
 
-
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-
 	include_once __DIR__ . '/services/index.php';
 
 	$fmhost = $config["filemaker"]["server_address"];
@@ -73,17 +68,19 @@ namespace Brookwoods {
 
 <title>BW DR Web App</title>
 <script src="jquery-3.6.0.min.js"></script>
-<script>
-	if (!" . (isset($_SESSION['pw']) ? 'true' : 'false') . ") {
-		let pw = prompt('Please enter the password');
-		location.replace('/auth.php?pw=' + pw + '&redirect_to=" . $_SERVER['REQUEST_URI'] . "');
-	}
-</script>
+
 
 	<?php
+	echo "<script>
+		if (!" . (isset($_SESSION['pw']) ? 'true' : 'false') . ") {
+			let pw = prompt('Please enter the password');
+			location.replace('/auth.php?pw=' + pw + '&redirect_to=" . $_SERVER['REQUEST_URI'] . "');
+		}
+	</script>";
+
 	if (!isset($_SESSION['pw']) || $_SESSION['pw'] != $config['site_password']) {
 		$_SESSION['pw'] = null;
-		die('unauthorized');
+		die('Unauthorized');
 	}
 
 	$noMenu = array(

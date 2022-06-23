@@ -1,23 +1,5 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['pw']) || $_SESSION['pw'] != $config['site_password']) {
-	$_SESSION['pw'] = null;
-	die('unauthorized');
-}
-
-$servername = $config['mysql']['host'];
-$username = $config['mysql']['username'];
-$password = $config['mysql']['password'];
-$dbname = $config['mysql']['dbname'];
-
-$mysqli = new mysqli($servername, $username, $password, $dbname);
- 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Fetch records from database
 $query = $mysqli->query("CALL `Get Activity Signups List`(" . $mysqli->real_escape_string($_GET['year']) . ",'" . $mysqli->real_escape_string($_GET['code']) . "')");
  
