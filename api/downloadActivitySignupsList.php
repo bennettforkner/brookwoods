@@ -1,8 +1,11 @@
 <?php
-
 // Fetch records from database
-$query = $mysqli->query("CALL `Get Activity Signups List`(" . $mysqli->real_escape_string($_GET['year']) . ",'" . $mysqli->real_escape_string($_GET['code']) . "')");
- 
+$sql = "CALL `Get Activity Signups List`(
+	" . $mysqli->real_escape_string($_GET['year']) . ",
+	'" . $mysqli->real_escape_string($_GET['code']) . "'
+)";
+$query = $mysqli->query($sql);
+
 if ($query->num_rows > 0) {
 	$delimiter = ",";
 

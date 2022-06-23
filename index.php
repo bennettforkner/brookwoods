@@ -58,7 +58,7 @@ namespace Brookwoods {
 	$mysqli = $_db->mysqli;
 	
 	if ((strpos($request, "/api") !== false)) {
-		include_once __DIR__ . $_SERVER['REQUEST_URI'];
+		include_once __DIR__ . $request;
 		return;
 	}
 	
