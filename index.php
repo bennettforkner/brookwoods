@@ -46,7 +46,7 @@ namespace Brookwoods {
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 
-	include_once __DIR__ . '\services\index.php';
+	include_once __DIR__ . '/services/index.php';
 
 	$fmhost = $config["filemaker"]["server_address"];
 	$fmusername = $config["filemaker"]["username"];
@@ -119,7 +119,7 @@ namespace Brookwoods {
 		}
 
 		if (!$loaded) {
-			include_once(__DIR__ . '\views\errors\404.html');
+			include_once(__DIR__ . '/views/errors/404.html');
 		}
 	}
 }
