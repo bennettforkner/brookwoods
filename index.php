@@ -106,6 +106,7 @@ namespace Brookwoods {
 	}
 	if (!$loaded) {
 		$pages = array(
+			"/archery/" => '/views/archery/index.php',
 			"/archery" => '/views/archery/index.php',
 			"" => '/views/home/index.php',
 			"/" => '/views/home/index.php'
