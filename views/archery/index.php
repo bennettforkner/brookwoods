@@ -84,7 +84,7 @@
 
 		var tabtoopen = '<?= isset($_GET['tab']) ? $_GET['tab'] : "" ?>';
 		if (tabtoopen != '') {
-			document.getElementById('data_tab_content').childNodes[1].src = tabtoopen + '.php';
+			document.getElementById('data_tab_content').childNodes[1].src = tabtoopen;
 			if (tabtoopen == 'campers') {
 				document.getElementById('data_tab_content').childNodes[1].src
 					+= ('?year=' + (new Date().getFullYear()));

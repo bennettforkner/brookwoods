@@ -92,7 +92,7 @@ namespace Brookwoods {
 		"/archery/activitySignups" => '/views/archery/components/activitySignups.php',
 		"/archery/camperProgress" => '/views/archery/components/camperProgress.php',
 		"/archery/camperProgressSearch" => '/views/archery/components/camperProgressSearch.php',
-		"/archery/createPerson" => '/views/archery/components/createPerson.php',
+		"/archery/createPerson" => '/views/archery/components/createPerson.html',
 		"/archery/editCamperProgress" => '/views/archery/components/editCamperProgress.php',
 	);
 
