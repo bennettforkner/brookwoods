@@ -1,6 +1,4 @@
 <?php
-	require "../config.php";
-
 	$sql = "select *,CONCAT(RequiredPoints,'@',Distance) as CodeName from Archery_Award order by OrderIndex asc";
 	$result = $mysqli->query($sql);
 ?>
@@ -37,17 +35,17 @@
 					<th>Required Points</th>
 				</tr>
 				<?php
-					if ($result->num_rows > 0) {
-  						// output data of each row
-  						while($row = $result->fetch_assoc()) {
-							echo "<tr>
-								<td>" . $row['Name'] . "</td>
-								<td>" . $row['CodeName'] . "</td>
-								<td>" . $row['Distance'] . " yds.</td>
-								<td>" . $row['RequiredPoints'] . "</td>
-							</tr>";
-						}
+				if ($result->num_rows > 0) {
+					// output data of each row
+					while ($row = $result->fetch_assoc()) {
+						echo "<tr>
+							<td>" . $row['Name'] . "</td>
+							<td>" . $row['CodeName'] . "</td>
+							<td>" . $row['Distance'] . " yds.</td>
+							<td>" . $row['RequiredPoints'] . "</td>
+						</tr>";
 					}
+				}
 
 				?>
 			</table>
