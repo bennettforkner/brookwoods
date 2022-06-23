@@ -3,7 +3,7 @@ namespace Brookwoods {
 
 	class FMService
 	{
-		private string $token;
+		private $token;
 
 		public function __construct($host, $username, $password)
 		{
