@@ -1,10 +1,14 @@
 <?php
-	
-	require "../config.php";
-	$sql = "SELECT PA.ID,CONCAT(RequiredPoints,'@',A.Distance) as Code,PA.TotalScore,PA.`Month/Year` as MonthYear,date_format(PA.DateAwarded,'%m-%d-%Y') as DateAwarded,A.Name as AwardName FROM Archery_PersonAward PA
+	$sql = "SELECT PA.ID,
+	CONCAT(RequiredPoints,'@',A.Distance) as Code,
+	PA.TotalScore,
+	PA.`Month/Year` as MonthYear,
+	date_format(PA.DateAwarded,'%m-%d-%Y') as DateAwarded,
+	A.Name as AwardName
+  FROM Archery_PersonAward PA
   LEFT JOIN Archery_Award A ON PA.AwardID = A.ID
   LEFT JOIN Archery_ScoreSheet SS ON PA.ScoreSheetID = SS.ID
-  WHERE SS.ID = " . $_GET['scoresheetid'] . "
+  WHERE SS.ID = " . $_GET['id'] . "
   ORDER BY A.OrderIndex asc";
 	$result = $mysqli->query($sql);
 
@@ -52,7 +56,9 @@
 			}
 		</style>
 		<div id='content'>
-			<div class='button back_button' onclick="location.href = '/archery/camperProgressSearch.php'"><b><</b>&nbsp&nbspBack</div>
+			<div class='button back_button' onclick="location.href = '/archery/camperProgressSearch'">
+				<b><</b>&nbsp&nbspBack
+			</div>
 			<table>
 				<tr>
 					<th>Name</th>
@@ -61,20 +67,20 @@
 					<th>Date Awarded</th>
 				</tr>
 				<?php
-					if ($result->num_rows > 0) {
-						// output data of each row
-						while($row = $result->fetch_assoc()) {
-							echo "
-								<tr>
-									<td>" . $row['AwardName'] . "</td>
-									<td>" . $row['Code'] . "</td>
-									<td>" . $row['TotalScore'] . "</td>
-									<td>" . ($row['DateAwarded'] ? $row['DateAwarded'] : $row['MonthYear']) . "</td>
+				if ($result->num_rows > 0) {
+					// output data of each row
+					while ($row = $result->fetch_assoc()) {
+						echo "
+							<tr>
+								<td>" . $row['AwardName'] . "</td>
+								<td>" . $row['Code'] . "</td>
+								<td>" . $row['TotalScore'] . "</td>
+								<td>" . ($row['DateAwarded'] ? $row['DateAwarded'] : $row['MonthYear']) . "</td>
 
-								</tr>
-							";
-						}
+							</tr>
+						";
 					}
+				}
 				?>
 			</table>
 		</div>

@@ -1,48 +1,120 @@
 <?php
+/**
+ * Routes requests to relevant views.
+ *
+ * PHP version 7.4
+ *
+ * @category Root
+ *
+ * @package Brookwoods
+ *
+ * @author Bennett Forkner <bennett.forkner@gordon.edu>
+ *
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License
+ *
+ * @link /index.php
+ *
+ * @since 3/9/2022
+ */
+namespace Brookwoods {
 
-	require "config.php";
+	$config = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/config.json'), true);
 
-?>
+	session_start();
+	
+	define('ROOTDIR', __DIR__);
 
-<html>
-	<head></head>
-	<body style='background-color:#22397d'>
-		<style>
-			#content {
-				width:80%;
-				max-width:1080px;
-				background-color:white;
-				margin:auto;
-				padding:50px;
-				margin-top:50px;
+	$request = $_SERVER['REQUEST_URI'];
+
+	if (strpos($request, "?") !== false) {
+		$request = substr($request, 0, strpos($request, "?"));
+	}
+
+	if (strpos($request, "#") !== false) {
+		$request = substr($request, 0, strpos($request, "#"));
+	}
+
+	$excludedPaths = array("/static","/favicon.ico");
+	foreach ($excludedPaths as $path) {
+		if ((strpos($request, $path) !== false)) {
+			return false;
+		}
+	}
+
+	include_once __DIR__ . '/services/index.php';
+
+	$fmhost = $config["filemaker"]["server_address"];
+	$fmusername = $config["filemaker"]["username"];
+	$fmpassword = $config["filemaker"]["password"];
+
+	//$_fm = new FMService($fmhost, $fmusername, $fmpassword);
+
+	$servername = $config['mysql']['hostname'];
+	$username = $config['mysql']['username'];
+	$password = $config['mysql']['password'];
+	$database = $config['mysql']['database'];
+	$_db = new DbService($servername, $username, $password, $database);
+
+	$mysqli = $_db->mysqli;
+	
+	if ((strpos($request, "/api") !== false)) {
+		include_once __DIR__ . $request;
+		return;
+	}
+	?>
+
+<title>BW DR Web App</title>
+<script src="jquery-3.6.0.min.js"></script>
+
+
+	<?php
+	echo "<script>
+		if (!" . (isset($_SESSION['pw']) ? 'true' : 'false') . ") {
+			let pw = prompt('Please enter the password');
+			location.replace('/auth.php?pw=' + pw + '&redirect_to=" . $_SERVER['REQUEST_URI'] . "');
+		}
+	</script>";
+
+	if (!isset($_SESSION['pw']) || $_SESSION['pw'] != $config['site_password']) {
+		$_SESSION['pw'] = null;
+		die('Unauthorized');
+	}
+
+	$noMenu = array(
+		"/archery/campers" => '/views/archery/components/campers.php',
+		"/archery/awards" => '/views/archery/components/awards.php',
+		"/archery/activitySignups" => '/views/archery/components/activitySignups.php',
+		"/archery/camperProgress" => '/views/archery/components/camperProgress.php',
+		"/archery/camperProgressSearch" => '/views/archery/components/camperProgressSearch.php',
+		"/archery/createPerson" => '/views/archery/components/createPerson.html',
+		"/archery/editCamperProgress" => '/views/archery/components/editCamperProgress.php',
+	);
+
+	$loaded = false;
+
+	foreach ($noMenu as $uri => $page) {
+		if ($request == $uri) {
+			include __DIR__ . $page;
+			$loaded = true;
+		}
+	}
+	if (!$loaded) {
+		$pages = array(
+			"/archery/" => '/views/archery/index.php',
+			"/archery" => '/views/archery/index.php',
+			"" => '/views/home/index.php',
+			"/" => '/views/home/index.php'
+		);
+
+		foreach ($pages as $uri => $page) {
+			if ($request == $uri) {
+				include_once(__DIR__ . $page);
+				$loaded = true;
 			}
-			.header_centered {
-				text-align:center;
-				font-size:45px;
-			}
-			#funtion_buttons a img {
-				width:19%;
-				height:15vw;
-				max-height:200px;
-			}
-			#funtion_buttons a img:hover {
-				background-color:#bbbbbb;
-				background:filter(80%);
-			}
-		</style>
-		<div id='content'>
-			<h1 class='header_centered'>Camp Brookwoods Web App</h1>
-			<div id='funtion_buttons'>
-				<a href='/archery'>
-					<img src='/img/archery_icon.png'>
-				</a>
-				<a href='/people'>
-					<img src='/img/person_icon.png'>
-				</a>
-				<a href='/riflery'>
-					<img src='/img/riflery_icon.jpg'>
-				</a>
-			</div>
-		</div>
-	</body>
-</html>
+		}
+
+		if (!$loaded) {
+			include_once(__DIR__ . '/views/errors/404.html');
+		}
+	}
+}

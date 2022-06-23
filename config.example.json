@@ -1,0 +1,14 @@
+{
+    "mysql": {
+        "hostname": "0.0.0.0",
+        "database": "awards",
+        "username": "awards.service",
+        "password": "thisisaPassword"
+    },
+    "site_password": "IAmUsedToAuthenticate",
+	"filemaker": {
+		"server_address": "http://0.0.0.0:3000",
+		"username": "awards.fmservice",
+		"password": "ExamplePasswordForFileMaker"
+	}
+}
