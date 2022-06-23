@@ -1,5 +1,4 @@
 <?php
-	require "../config.php";
 
 	$sql = "SELECT *
 	FROM Session
@@ -54,7 +53,7 @@
 
 			
 			<h1 style='text-align:center;'>Activity Signups List</h1>
-			<a href='/archery/edit/endpoints/downloadActivitySignupsList.php?year=<?= $year ?>&code=<?= $code ?>'
+			<a href='/api/downloadActivitySignupsList.php?year=<?= $year ?>&code=<?= $code ?>'
 				target='post_location'
 				style='text-decoration:none;
 					padding:3px;
@@ -73,13 +72,15 @@
 			<iframe name=post_location style='height:0px;width:0px;border-style:none;'></iframe>
 			<select onchange="changeSession(this.value)" style='display:block;margin:auto;margin-bottom:20px;'>
 				<?php
-					while($row = $allSessions->fetch_assoc()) {
-						$selected = $row['Year'] == $year && $row['Code'] == $code ? "selected" : "";
-						$optionName = $row['Year'] . " - " . $row['Name'];
-						echo "
-							<option " . $selected . " value='{\"year\":\"" . $row['Year'] . "\",\"code\":\"" . $row['Code'] . "\"}'>" . $optionName . "</option>
-						";
-					}
+				while ($row = $allSessions->fetch_assoc()) {
+					$selected = $row['Year'] == $year && $row['Code'] == $code ? "selected" : "";
+					$optionName = $row['Year'] . " - " . $row['Name'];
+					echo "
+						<option " . $selected . " value='
+						{\"year\":\"" . $row['Year'] . "\",\"code\":\"" . $row['Code'] . "\"}
+						'>" . $optionName . "</option>
+					";
+				}
 				?>
 			</select>
 			<table>
@@ -92,19 +93,21 @@
 				</tr>
 				<?php
 
-					if ($result->num_rows > 0) {
-  						// output data of each row
-  						while($row = $result->fetch_assoc()) {
-  							$name = $row['LastName'] . ", " . $row['FirstName'] . ($row['NickName'] ? (" \"" . $row["NickName"] . "\"") : "");
-							echo "<tr>
-								<td>" . $name . "</td>
-								<td>" . $row['Gender'] . "</td>
-								<td>" . $row['MaxAward'] . "</td>
-								<td>" . $row['MaxAwardDate'] . "</td>
-								<td>" . $row['NextAward'] . "</td>
-							</tr>";
-						}
+				if ($result->num_rows > 0) {
+					// output data of each row
+					while ($row = $result->fetch_assoc()) {
+						$name = $row['LastName'] . ", " . $row['FirstName']
+						. ($row['NickName'] ? (" \"" . $row["NickName"]
+						. "\"") : "");
+						echo "<tr>
+							<td>" . $name . "</td>
+							<td>" . $row['Gender'] . "</td>
+							<td>" . $row['MaxAward'] . "</td>
+							<td>" . $row['MaxAwardDate'] . "</td>
+							<td>" . $row['NextAward'] . "</td>
+						</tr>";
 					}
+				}
 
 				?>
 			</table>

@@ -1,8 +1,3 @@
-<?php
-	
-	require "../config.php";
-?>
-
 <html>
 	<head></head>
 	<body style='background-color:#22397d'>
@@ -45,7 +40,9 @@
 			<h1 class='header_centered'>Archery Award System</h1>
 			<div id='data_tabs'>
 				<div class='tabs'>
-					<div class='tab' id='campersTab' onclick="openTab(this)" style='background-color:#aaaaaa;'>Campers</div>
+					<div class='tab' id='campersTab' onclick="openTab(this)" style='background-color:#aaaaaa;'>
+						Campers
+					</div>
 					<div class='tab' onclick="openTab(this)">Activity Signups</div>
 					<div class='tab' onclick="openTab(this)">Awards</div>
 					<div class='tab' onclick="openTab(this)">Camper Progress</div>
@@ -63,15 +60,15 @@
 		function openTab(caller) {
 			var src = "";
 			if (caller.innerText == 'Campers') {
-				src = ('campers.php?year=' + (new Date().getFullYear()));
+				src = ('/archery/campers?year=' + (new Date().getFullYear()));
 			} else if (caller.innerText == 'Activity Signups') {
-				src = 'activitySignups.php';
+				src = '/archery/activitySignups';
 			} else if (caller.innerText == 'Awards') {
-				src = 'awards.php';
+				src = '/archery/awards';
 			} else if (caller.innerText == 'Camper Progress') {
-				src = 'camperProgressSearch.php';
+				src = '/archery/camperProgressSearch';
 			} else if (caller.innerText == 'Create Person') {
-				src = 'createPerson.php';
+				src = '/archery/createPerson';
 			}
 			document.getElementById('data_tab_content').childNodes[1].src = src;
 
@@ -89,7 +86,8 @@
 		if (tabtoopen != '') {
 			document.getElementById('data_tab_content').childNodes[1].src = tabtoopen + '.php';
 			if (tabtoopen == 'campers') {
-				document.getElementById('data_tab_content').childNodes[1].src += ('?year=' + (new Date().getFullYear()));
+				document.getElementById('data_tab_content').childNodes[1].src
+					+= ('?year=' + (new Date().getFullYear()));
 			}
 
 			var tabs = document.getElementsByClassName('tab');
