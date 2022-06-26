@@ -7,20 +7,19 @@ namespace Brookwoods {
 
 		public function __construct($host, $username, $password)
 		{
-			$this->token = $this::getToken($host, $username, $password, "Get token");
+			$this->token = $this::getToken($host, $username, $password, "GetToken");
 		}
 
 		private static function getToken($host, $username, $password, $payloadName)
 		{
 
 			$additionalHeaders = '';
-			$ch = curl_init($host);
+			$ch = curl_init($host . "/fmi/data/vLatest/databases/Camp%20Database/sessions");
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $additionalHeaders));
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 			curl_setopt($ch, CURLOPT_POST, 1);
-			//curl_setopt($ch, CURLOPT_POSTFIELDS, $payloadName);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$result = curl_exec($ch); // Execute the cURL statement
 			curl_close($ch); // Close the cURL connection
@@ -42,7 +41,7 @@ namespace Brookwoods {
 					
 			$additionalHeaders = "Authorization: Bearer ".$this->token; // Prepare the authorisation token
 			$ch = curl_init($host);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $additionalHeaders )); // Inject the token into the header
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $additionalHeaders)); // Inject the token into the header
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 			curl_setopt($ch, CURLOPT_POST, 1); // Specify the request method as POST
@@ -50,7 +49,6 @@ namespace Brookwoods {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$result = curl_exec($ch); // Execute the cURL statement
 			curl_close($ch); // Close the cURL connection
-		
 			// Decode the resulting JSON
 			$json_data = json_decode($result);
 		

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 	$sql = "SELECT PA.ID,
 	CONCAT(RequiredPoints,'@',A.Distance) as Code,
 	PA.TotalScore,
@@ -8,7 +11,7 @@
   FROM Archery_PersonAward PA
   LEFT JOIN Archery_Award A ON PA.AwardID = A.ID
   LEFT JOIN Archery_ScoreSheet SS ON PA.ScoreSheetID = SS.ID
-  WHERE SS.ID = " . $_GET['id'] . "
+  WHERE SS.ID = " . $_GET['scoresheetid'] . "
   ORDER BY A.OrderIndex asc";
 	$result = $mysqli->query($sql);
 

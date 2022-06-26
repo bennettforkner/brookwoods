@@ -20,10 +20,6 @@ namespace Brookwoods {
 
 	$config = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/config.json'), true);
 
-	session_start();
-	
-	define('ROOTDIR', __DIR__);
-
 	$request = $_SERVER['REQUEST_URI'];
 
 	if (strpos($request, "?") !== false) {
@@ -33,6 +29,14 @@ namespace Brookwoods {
 	if (strpos($request, "#") !== false) {
 		$request = substr($request, 0, strpos($request, "#"));
 	}
+
+	if ($request == '/auth.php') {
+		return false;
+	}
+
+	session_start();
+	
+	define('ROOTDIR', __DIR__);
 
 	$excludedPaths = array("/static","/favicon.ico");
 	foreach ($excludedPaths as $path) {
@@ -47,7 +51,7 @@ namespace Brookwoods {
 	$fmusername = $config["filemaker"]["username"];
 	$fmpassword = $config["filemaker"]["password"];
 
-	//$_fm = new FMService($fmhost, $fmusername, $fmpassword);
+	//$_fm = new FMService("https://New-Hampshire-Server.local:3000", "Archery", "PersuadePromptDoLift");
 
 	$servername = $config['mysql']['hostname'];
 	$username = $config['mysql']['username'];
@@ -64,7 +68,7 @@ namespace Brookwoods {
 	?>
 
 <title>BW DR Web App</title>
-<script src="jquery-3.6.0.min.js"></script>
+<script src="/static/js/jquery-3.6.0.min.js"></script>
 
 
 	<?php
@@ -88,6 +92,7 @@ namespace Brookwoods {
 		"/archery/camperProgressSearch" => '/views/archery/components/camperProgressSearch.php',
 		"/archery/createPerson" => '/views/archery/components/createPerson.html',
 		"/archery/editCamperProgress" => '/views/archery/components/editCamperProgress.php',
+		"/test" => '/views/test.php',
 	);
 
 	$loaded = false;
