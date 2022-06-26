@@ -94,11 +94,11 @@
 												onclick=\"location.replace('/archery/camperProgress?scoresheetid="
 												. $row['ScoreSheetID'] . $backTo . "')\">View Record</button>"
 											: "") . "</td>
-										<td><button onclick=\"parent.location.href = '/archery/editCamperProgress?"
+										<td><button onclick=\"location.replace('/archery/editCamperProgress?"
 											. ($row['ScoreSheetID']
 												? ("id=" . $row['ScoreSheetID'])
 												: ("id=" . $row['PersonID'] . "&create"))
-											. $backTo . "';\">" . ($row['ScoreSheetID'] ? "Edit Record" : "Create Record")
+											. $backTo . "');\">" . ($row['ScoreSheetID'] ? "Edit Record" : "Create Record")
 											. "</button></td>
 									</tr>
 								";

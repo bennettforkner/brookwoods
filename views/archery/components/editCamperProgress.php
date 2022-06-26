@@ -61,7 +61,7 @@ if ($awards->num_rows > 0) {
 ?>
 
 <html>
-	<body style='background-color:#22397d'>
+	<body>
 		<style>
 			#content {
 				width:80%;
@@ -167,8 +167,13 @@ if ($awards->num_rows > 0) {
 					foreach ($awardsarr as $row) {
 						$pa = $personawards[$row['ID']];
 						echo "
-								<div class='award'>
-									<h3>" . $row['Name'] . " (" . $row['CodeName'] . ")</h3>
+							<div class='award'>
+								<h3>" . $row['CodeName'] . "</h3>
+								<h5 style='margin-top:-5;
+									text-align:right;
+									margin-right:20px;
+									color: #22397d88;
+								'>" . $row['Name'] . "</h5>
 							</div>
 						";
 					}
