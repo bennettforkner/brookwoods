@@ -19,7 +19,7 @@
 namespace Brookwoods {
 
 	$config = json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/config.json'), true);
-
+	
 	$request = $_SERVER['REQUEST_URI'];
 
 	if (strpos($request, "?") !== false) {
@@ -62,7 +62,7 @@ namespace Brookwoods {
 	$mysqli = $_db->mysqli;
 	
 	if ((strpos($request, "/api") !== false)) {
-		include_once __DIR__ . $_SERVER['REQUEST_URI'];
+		include_once __DIR__ . $request;
 		return;
 	}
 	?>
