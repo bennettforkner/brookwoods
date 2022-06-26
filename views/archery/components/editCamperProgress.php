@@ -147,7 +147,9 @@ if ($awards->num_rows > 0) {
 					style='width:20px;height:20px;float:left;cursor:pointer;'>
 				<label style='text-decoration:none;'>Auto-Enter Month</label>
 			</div>
-			<div class='button back_button' onclick="location.href = '/archery'"><b><</b>&nbsp&nbspBack</div>
+			<div class='button back_button' onclick="location.href = '<?= $_GET['back_to'] ?>'">
+				<b><</b>&nbsp&nbspBack
+			</div>
 			<h1 class='header_centered'>Archery Awards for 
 				<?php
 				$row = $person->fetch_assoc();

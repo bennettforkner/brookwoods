@@ -59,7 +59,7 @@ error_reporting(E_ALL);
 			}
 		</style>
 		<div id='content'>
-			<div class='button back_button' onclick="location.href = '/archery/camperProgressSearch'">
+			<div class='button back_button' onclick="location.href = '<?= $_GET['back_to'] ?>'">
 				<b><</b>&nbsp&nbspBack
 			</div>
 			<table>

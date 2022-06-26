@@ -80,6 +80,7 @@
 						if ($result->num_rows > 0) {
 							// output data of each row
 							while ($row = $result->fetch_assoc()) {
+								$backTo = "&back_to=" . $_SERVER['REQUEST_URI'];
 								echo "
 									<tr class='data_row'>
 										<td>" . $row['FirstName'] . ($row['NickName']
@@ -91,13 +92,13 @@
 										<td>" . ($row['ScoreSheetID']
 											? "<button
 												onclick=\"location.replace('/archery/camperProgress?scoresheetid="
-												. $row['ScoreSheetID'] . "')\">View Record</button>"
+												. $row['ScoreSheetID'] . $backTo . "')\">View Record</button>"
 											: "") . "</td>
 										<td><button onclick=\"parent.location.href = '/archery/editCamperProgress?"
 											. ($row['ScoreSheetID']
 												? ("id=" . $row['ScoreSheetID'])
 												: ("id=" . $row['PersonID'] . "&create"))
-											. "';\">" . ($row['ScoreSheetID'] ? "Edit Record" : "Create Record")
+											. $backTo . "';\">" . ($row['ScoreSheetID'] ? "Edit Record" : "Create Record")
 											. "</button></td>
 									</tr>
 								";
