@@ -158,7 +158,7 @@ if ($awards->num_rows > 0) {
 					: ""));
 				?>
 			</h1>
-			<form id='editForm' action='/api/camperProgress.php' method='post' target='_blank'>
+			<form id='editForm' action='/api/camperProgress.php' method='post' target='post_location'>
 				<input type='hidden' name='scoresheetid' value='<?php echo $scoresheetid; ?>'>
 				
 				<div style='width:25%;float:left;display:inline-block;'>
@@ -237,6 +237,7 @@ if ($awards->num_rows > 0) {
 				</div>
 				<a onclick='submitForm()'><div class='button save_button'>Save</div></a>
 			</form>
+			<iframe id=post_location name=post_location style='display:none;'></iframe>
 		</div>
 	</body>
 	<script>
@@ -250,7 +251,9 @@ if ($awards->num_rows > 0) {
 
 		function submitForm(){
 			document.getElementById('editForm').submit();
-			location.href = '/archery/?tab=camperProgressSearch'
+			document.getElementById('post_location').onload = () => {
+				location.href = '<?= $_GET['back_to'] ?>';
+			}
 		}
 
 		let autotypemonth = true;
