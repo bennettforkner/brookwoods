@@ -29,7 +29,7 @@ namespace Brookwoods {
 	if (strpos($request, "#") !== false) {
 		$request = substr($request, 0, strpos($request, "#"));
 	}
-
+	
 	if ($request == '/auth.php') {
 		return false;
 	}
@@ -62,7 +62,7 @@ namespace Brookwoods {
 	$mysqli = $_db->mysqli;
 	
 	if ((strpos($request, "/api") !== false)) {
-		include_once __DIR__ . $request;
+		include_once __DIR__ . $_SERVER['REQUEST_URI'];
 		return;
 	}
 	?>
@@ -92,7 +92,6 @@ namespace Brookwoods {
 		"/archery/camperProgressSearch" => '/views/archery/components/camperProgressSearch.php',
 		"/archery/createPerson" => '/views/archery/components/createPerson.html',
 		"/archery/editCamperProgress" => '/views/archery/components/editCamperProgress.php',
-		"/test" => '/views/test.php',
 	);
 
 	$loaded = false;
@@ -105,10 +104,10 @@ namespace Brookwoods {
 	}
 	if (!$loaded) {
 		$pages = array(
-			"/archery/" => '/views/archery/index.php',
-			"/archery" => '/views/archery/index.php',
-			"" => '/views/home/index.php',
-			"/" => '/views/home/index.php'
+			"/archery/" => '/views/archery/index.html',
+			"/archery" => '/views/archery/index.html',
+			"" => '/views/home/index.html',
+			"/" => '/views/home/index.html'
 		);
 
 		foreach ($pages as $uri => $page) {
