@@ -15,7 +15,7 @@ if ($query->num_rows > 0) {
 	$f = fopen('php://memory', 'w');
 	 
 	// Set column headers
-	$fields = array('FirstName', 'LastName', 'DOB', 'Gender', 'AA', 'MaxAward', 'MaxAwardDate', 'NextAward');
+	$fields = array('FirstName', 'LastName', 'DOB', 'Gender', 'AA', 'NextAward', 'MaxAward', 'MaxAwardDate');
 	fputcsv($f, $fields, $delimiter);
 	 
 	// Output each row of the data, format line as csv and write to file pointer
@@ -26,9 +26,9 @@ if ($query->num_rows > 0) {
 			$row['DOB'],
 			$row['Gender'],
 			$row['AA'],
+			$row['NextAwardCode'],
 			$row['MaxAwardCode'],
-			$row['MaxAwardDate'],
-			$row['NextAwardCode']
+			$row['MaxAwardDate']
 		);
 		fputcsv($f, $lineData, $delimiter);
 	}
