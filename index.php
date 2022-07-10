@@ -31,7 +31,8 @@ namespace Brookwoods {
 	}
 	
 	if ($request == '/auth.php') {
-		return false;
+		include_once __DIR__ . $request;
+		exit;
 	}
 
 	session_start();
