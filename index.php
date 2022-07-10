@@ -40,7 +40,7 @@ namespace Brookwoods {
 
 	$excludedPaths = array("/static","/favicon.ico");
 	foreach ($excludedPaths as $path) {
-		if ((strpos($request, $path) !== false)) {
+		if ((stripos($request, $path) !== false)) {
 			return false;
 		}
 	}
@@ -69,7 +69,7 @@ namespace Brookwoods {
 
 <title>BW DR Web App</title>
 <script src="/static/js/jquery-3.6.0.min.js"></script>
-
+<link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
 
 	<?php
 	echo "<script>
