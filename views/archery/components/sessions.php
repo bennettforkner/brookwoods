@@ -1,4 +1,6 @@
 <?php
+	$sql = "select *,CONCAT(Code,' ',Year) as CodeName, CONCAT(Year, ' ', Name) as FullName from Session order by StartDate desc";
+	$result = $mysqli->query($sql);
 
 	$sql = "SELECT *
 	FROM Session
@@ -15,16 +17,21 @@
 	$sql = "SELECT *
 	FROM Session
 	WHERE EndDate > DATE_SUB(NOW(), INTERVAL 5 YEAR)
-	ORDER BY EndDate DESC";
+	ORDER BY EndDate DESC
+	LIMIT 30";
 
 	$allSessions = $mysqli->query($sql);
 
-	$sql = "CALL `Get Activity Signups List`(" . $year . ",'" . $code . "')";
-
-	$result = $mysqli->query($sql);
+	$sql = "
+		SELECT * FROM `Person` P
+		INNER JOIN Camper_Session_Assign CSA ON P.ID = CSA.CamperID
+		INNER JOIN Session S ON CSA.SessionID = S.ID
+		WHERE S.Year = '" . $year . "'
+		AND S.Code = '" . $code . "'
+	";
+	$campers = $mysqli->query($sql);
 
 ?>
-
 <html>
 	<body style='margin:20px;'>
 		<style>
@@ -35,7 +42,6 @@
 				margin:auto;
 				padding:50px;
 				margin-top:50px;
-				padding-top:5px;
 			}
 			table {
 				border-collapse:collapse;
@@ -50,27 +56,32 @@
 			}
 
 		</style>
-		<div id='content' style='position:relative;'>
+		<div id='content'>
+			<h2>Session Management</h2>
+			<table>
+				<tr>
+					<th>Session Name</th>
+					<th>Code</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+				</tr>
+				<?php
+				if ($result->num_rows > 0) {
+					// output data of each row
+					while ($row = $result->fetch_assoc()) {
+						echo "<tr>
+							<td>" . $row['FullName'] . "</td>
+							<td>" . $row['CodeName'] . "</td>
+							<td>" . $row['StartDate'] . "</td>
+							<td>" . $row['EndDate'] . "</td>
+						</tr>";
+					}
+				}
 
-			
-			<h1 style='text-align:center;'>Activity Signups List</h1>
-			<a href='/api/downloadActivitySignupsList.php?year=<?= $year ?>&code=<?= $code ?>'
-				target='post_location'
-				style='text-decoration:none;
-					padding:3px;
-					border-color:#333333;
-					border-style:solid;
-					border-width:1px;
-					border-radius:3px;
-					color:black;
-					display:block;
-					position:absolute;
-					top:10px;
-					right:10px;
-				'>
-				Export List
-			</a>
-			<iframe name=post_location style='height:0px;width:0px;border-style:none;'></iframe>
+				?>
+			</table>
+			<br/>
+			<br/>
 			<select onchange="changeSession(this.value)" style='display:block;margin:auto;margin-bottom:20px;'>
 				<?php
 				while ($row = $allSessions->fetch_assoc()) {
@@ -84,28 +95,23 @@
 				}
 				?>
 			</select>
+
+			<h3>Connected Campers</h3>
 			<table>
 				<tr>
-					<th>Name</th>
-					<th>Gender</th>
-					<th>Max Award</th>
-					<th>Date Awarded</th>
-					<th>Next Award</th>
+					<th>First Name</th>
+					<th>Last Name</th>
 				</tr>
 				<?php
 
-				if ($result->num_rows > 0) {
+				if ($campers->num_rows > 0) {
 					// output data of each row
-					while ($row = $result->fetch_assoc()) {
-						$name = $row['LastName'] . ", " . $row['FirstName']
-						. ($row['NickName'] ? (" \"" . $row["NickName"]
-						. "\"") : "");
+					while ($row = $campers->fetch_assoc()) {
 						echo "<tr>
-							<td>" . $name . "</td>
-							<td>" . $row['Gender'] . "</td>
-							<td>" . $row['MaxAward'] . "</td>
-							<td>" . $row['MaxAwardDate'] . "</td>
-							<td>" . $row['NextAward'] . "</td>
+							<td>" . $row['FirstName']
+							. ($row['NickName'] ? (" \"" . $row["NickName"]
+							. "\"") : "") . "</td>
+							<td>" . $row['LastName'] . "</td>
 						</tr>";
 					}
 				}

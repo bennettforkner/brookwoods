@@ -47,6 +47,7 @@
 					<div class='tab' onclick="openTab(this)">Awards</div>
 					<div class='tab' onclick="openTab(this)">Camper Progress</div>
 					<div class='tab' onclick="openTab(this)">Create Person</div>
+					<div class='tab' onclick="openTab(this)">Sessions</div>
 				</div>
 				<div id='data_tab_content'>
 					<iframe></iframe>
@@ -69,6 +70,8 @@
 				src = '/archery/camperProgressSearch';
 			} else if (caller.innerText == 'Create Person') {
 				src = '/archery/createPerson';
+			} else if (caller.innerText == 'Sessions') {
+				src = '/archery/sessions';
 			}
 			document.getElementById('data_tab_content').childNodes[1].src = src;
 
@@ -103,6 +106,8 @@
 					if (tabs[i].innerText == 'Camper Progress') tabs[i].style.backgroundColor = "#aaaaaa";
 				} else if (tabtoopen == 'createPerson') {
 					if (tabs[i].innerText == 'Create Person') tabs[i].style.backgroundColor = "#aaaaaa";
+				} else if (tabtoopen == 'sessions') {
+					if (tabs[i].innerText == 'Sessions') tabs[i].style.backgroundColor = "#aaaaaa";
 				}
 			}
 		}
