@@ -3,3 +3,4 @@ vendor/
 *phpcs.xml
 php_errors.log
 .well-known/
+.htaccess
