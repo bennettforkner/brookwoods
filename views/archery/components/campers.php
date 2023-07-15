@@ -71,7 +71,7 @@ $years = $mysqli->query($sql);
 			if (!isset($_GET['year']) || $row['Year'] == $_GET['year']) {
 				$selected = "selected";
 			}
-			echo "<option value=" . date("Y") . " " . $selected . ">" . date("Y") . "</option>";
+			#echo "<option value=" . date("Y") . " " . $selected . ">" . date("Y") . "</option>";
 			while ($row = $years->fetch_assoc()) {
 				$selected = '';
 				if (isset($_GET['year']) && $row['Year'] == $_GET['year']) {
