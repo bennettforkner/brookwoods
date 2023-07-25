@@ -33,6 +33,25 @@
 
 ?>
 <html>
+	<head>
+		<style>
+			button {
+				cursor:pointer;
+			}
+			.button {
+				font-size:22px;
+				color:black;
+				border-radius:5px;
+				padding:5px 15px;
+				text-decoration:none;
+				display:inline-block;
+				cursor:pointer;
+			}
+			.button:hover {
+				background-color:#bbbbbb;
+			}
+		</style>
+	</head>
 	<body style='margin:20px;'>
 		<style>
 			#content {
@@ -80,6 +99,7 @@
 
 				?>
 			</table>
+			<button onclick="location.href = '/archery/createSession'">Create Session</button>
 			<br/>
 			<br/>
 			<select onchange="changeSession(this.value)" style='display:block;margin:auto;margin-bottom:20px;'>
@@ -118,6 +138,17 @@
 
 				?>
 			</table>
+			<form action="/archery/uploadSessionCampers" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="year" value="<?= $year ?>">
+				<input type="hidden" name="code" value="<?= $code ?>">
+				Upload List of Active Campers:
+				<input type="file" name="fileToUpload" id="fileToUpload">
+				<input type="submit" value="Upload List" name="submit">
+			</form>
+			<p>
+				** When uploading the file, please make sure to use the following format:<br/>
+				<b>FileMaker Serial Number | First Name | Last Name | Nick Name | Attending Session | Gender</b>
+			</p>
 		</div>
 	</body>
 	<script>
