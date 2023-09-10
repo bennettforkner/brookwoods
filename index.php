@@ -110,6 +110,8 @@ namespace Brookwoods {
 		$pages = array(
 			"/archery/" => '/views/archery/index.html',
 			"/archery" => '/views/archery/index.html',
+			"/sailing/" => '/views/sailing/index.html',
+			"/sailing" => '/views/sailing/index.html',
 			"" => '/views/home/index.html',
 			"/" => '/views/home/index.html'
 		);
