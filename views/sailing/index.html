@@ -61,17 +61,17 @@
 		function openTab(caller) {
 			var src = "";
 			if (caller.innerText == 'Campers') {
-				src = ('/archery/campers?year=' + (new Date().getFullYear()));
+				src = ('/sailing/campers?year=' + (new Date().getFullYear()));
 			} else if (caller.innerText == 'Activity Signups') {
-				src = '/archery/activitySignups';
+				src = '/sailing/activitySignups';
 			} else if (caller.innerText == 'Awards') {
-				src = '/archery/awards';
+				src = '/sailing/awards';
 			} else if (caller.innerText == 'Camper Progress') {
-				src = '/archery/camperProgressSearch';
+				src = '/sailing/camperProgressSearch';
 			} else if (caller.innerText == 'Create Person') {
-				src = '/archery/createPerson';
+				src = '/sailing/createPerson';
 			} else if (caller.innerText == 'Sessions') {
-				src = '/archery/sessions';
+				src = '/sailing/sessions';
 			}
 			document.getElementById('data_tab_content').childNodes[1].src = src;
 

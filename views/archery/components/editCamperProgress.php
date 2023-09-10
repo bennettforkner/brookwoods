@@ -7,7 +7,6 @@ if (isset($_GET['create'])) {
 
 	$mysqli->query($sql);
 
-
 	$sql = "SELECT ID FROM Archery_ScoreSheet WHERE PersonID = '" . $personid . "' order by DateCreated desc";
 
 	$result = $mysqli->query($sql);

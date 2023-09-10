@@ -94,6 +94,8 @@ namespace Brookwoods {
 		"/archery/createPerson" => '/views/archery/components/createPerson.html',
 		"/archery/editCamperProgress" => '/views/archery/components/editCamperProgress.php',
 		"/archery/sessions" => '/views/archery/components/sessions.php',
+		"/archery/createSession" => '/views/archery/components/createSession.php',
+		"/archery/uploadSessionCampers" => '/views/archery/components/uploadSessionCampers.php',
 	);
 
 	$loaded = false;
@@ -108,6 +110,8 @@ namespace Brookwoods {
 		$pages = array(
 			"/archery/" => '/views/archery/index.html',
 			"/archery" => '/views/archery/index.html',
+			"/sailing/" => '/views/sailing/index.html',
+			"/sailing" => '/views/sailing/index.html',
 			"" => '/views/home/index.html',
 			"/" => '/views/home/index.html'
 		);
