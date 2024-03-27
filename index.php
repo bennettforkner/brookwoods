@@ -85,33 +85,17 @@ namespace Brookwoods {
 		die('Unauthorized');
 	}
 
-	$noMenu = array(
-		"/archery/campers" => '/views/archery/components/campers.php',
-		"/archery/awards" => '/views/archery/components/awards.php',
-		"/archery/activitySignups" => '/views/archery/components/activitySignups.php',
-		"/archery/camperProgress" => '/views/archery/components/camperProgress.php',
-		"/archery/camperProgressSearch" => '/views/archery/components/camperProgressSearch.php',
-		"/archery/createPerson" => '/views/archery/components/createPerson.html',
-		"/archery/editCamperProgress" => '/views/archery/components/editCamperProgress.php',
-		"/archery/sessions" => '/views/archery/components/sessions.php',
-		"/archery/createSession" => '/views/archery/components/createSession.php',
-		"/archery/uploadSessionCampers" => '/views/archery/components/uploadSessionCampers.php',
-	);
-
-	$loaded = false;
-
-	foreach ($noMenu as $uri => $page) {
-		if ($request == $uri) {
-			include __DIR__ . $page;
-			$loaded = true;
-		}
+	if (str_contains($request, '/activity/')) {
+		include_once(__DIR__ . '/views/activity/index.php');
+		$loaded = true;
 	}
+
 	if (!$loaded) {
 		$pages = array(
 			"/archery/" => '/views/archery/index.html',
 			"/archery" => '/views/archery/index.html',
-			"" => '/views/home/index.html',
-			"/" => '/views/home/index.html'
+			"" => '/views/home/index.php',
+			"/" => '/views/home/index.php'
 		);
 
 		foreach ($pages as $uri => $page) {
