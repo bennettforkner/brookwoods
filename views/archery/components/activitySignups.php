@@ -1,13 +1,23 @@
 <?php
 
 	$sql = "SELECT *
-	FROM Session
-	WHERE EndDate > CURRENT_TIMESTAMP
-	AND StartDate < CURRENT_TIMESTAMP
-	ORDER BY EndDate asc
-	LIMIT 1";
+		FROM Session
+		WHERE EndDate > CURRENT_TIMESTAMP
+		AND StartDate < CURRENT_TIMESTAMP
+		ORDER BY EndDate asc
+		LIMIT 1";
 
 	$activeSession = $mysqli->query($sql)->fetch_assoc();
+
+	if (!$activeSession) {
+		$sql = "SELECT *
+			FROM Session
+			WHERE StartDate < CURRENT_TIMESTAMP
+			ORDER BY EndDate desc
+			LIMIT 1";
+
+		$activeSession = $mysqli->query($sql)->fetch_assoc();
+	}
 
 	$year = isset($_GET['year']) ? $mysqli->real_escape_string($_GET['year']) : $activeSession['Year'];
 	$code = isset($_GET['code']) ? $mysqli->real_escape_string($_GET['code']) : $activeSession['Code'];
